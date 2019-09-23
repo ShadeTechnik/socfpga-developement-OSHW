@@ -1,0 +1,90 @@
+#!/usr/bin/env python
+
+import gtk
+import gobject
+import gladevcp.makepins
+from gladevcp.gladebuilder import GladeBuilder
+import hal
+import sys,os
+import subprocess
+
+# set up paths to files
+BASE = os.path.abspath(os.path.join(os.path.dirname(sys.argv[0]), ".."))
+libdir = os.path.join(BASE, "lib", "python")
+sys.path.insert(0, libdir)
+datadir = os.path.join(BASE,"share", "linuxcnc")
+xmlname = os.path.join(datadir,"ST_DC1_G_small.glade")
+import linuxcnc
+
+class ST_DC1(object):
+
+  def __init__(self, inifile):
+    self.emc = linuxcnc
+    self.status = self.emc.stat()
+    self.builder = gtk.Builder()
+    self.builder.add_from_file(xmlname)
+    self.halcomp = hal.component("ST_DC1_G")
+    self.builder.connect_signals(self)
+    self.window = self.builder.get_object("window1")
+    self.window.show()
+    self.panel = gladevcp.makepins.GladePanel(self.halcomp, xmlname, self.builder, None)
+    self.halcomp.ready()
+    self.machine_status = 0
+    self.tcl_dir = os.environ["LINUXCNC_TCL_DIR"] + "/bin/"
+    self.ini_file = os.environ["INI_FILE_NAME"]
+
+  def periodic(self): # fetch status items and update screen
+
+    # poll the error channel
+    self.error_status = self.error_channel.poll()
+    if self.error_status:
+      self.error_kind, self.error_text = self.error_status
+      if self.error_kind in (linuxcnc.NML_ERROR, linuxcnc.OPERATOR_ERROR):
+        self.error_type = "Error "
+      else:
+        self.error_type = "Info "
+      self.message_id = self.statusbar.push(0, self.error_type + self.error_text)
+
+  def postgui(self):
+    inifile = linuxcnc.ini(self.ini_file)
+    postgui_halfile = inifile.find("HAL", "POSTGUI_HALFILE")
+    return postgui_halfile,sys.argv[2]
+
+  def on_Halshow_btn_clicked(self, widget, data=None):
+    print "Open Hal Show"
+    subprocess.Popen([self.tcl_dir + "halshow.tcl"])
+
+  def on_HalScope_clicked(self, widget, data=None):
+    print "Open HalScope"
+    p = os.popen("halscope > /dev/null &","w")
+
+  def on_Axis_Calib_btn_clicked(self, widget, data=None):
+    print "Open Axis Calibration Utillity"
+    p = os.popen("tclsh %semccalib.tcl -- -ini %s > /dev/null &" % (self.tcl_dir ,self.ini_file),"w")
+
+  def on_window1_destroy(self, widget, data=None):
+    print "quit with cancel"
+    gtk.main_quit()
+
+  def on_gtk_quit_activate(self, menuitem, data=None):
+    print "quit from menu"
+    gtk.main_quit()
+
+# run the program
+if __name__ == "__main__":
+  if len(sys.argv) > 2 and sys.argv[1] == '-ini':
+    print "2", sys.argv[2]
+    app = ST_DC1(sys.argv[2])
+  else:
+    app = ST_DC1()
+
+  # load a postgui file if one is present in the INI file
+  postgui_halfile,inifile = ST_DC1.postgui (app)
+  print "ST_DC1 postgui filename:",postgui_halfile
+
+  if postgui_halfile:
+    res = os.spawnvp(os.P_WAIT, "halcmd", ["halcmd", "-i",inifile,"-f", postgui_halfile])
+    if res: raise SystemExit, res
+
+  gtk.main()
+

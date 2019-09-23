@@ -1,0 +1,391 @@
+#############################################
+# STEP/DIRECTION
+#############################################
+
+##Jog Buttons
+net jog_mom_plus_0_mom    <= [DISPLAY](DISPLAY).hal_button_SD-JOG+_MOM_0
+net jog_mom_plus_0_mom    => or2.0_plus.in0
+net jog_mom_plus_0_const  <= [DISPLAY](DISPLAY).hal_tglbtn_SD-JOG+_CONST_0
+net jog_mom_plus_0_const  => or2.0_plus.in1
+net jog_mom_plus_0        <= or2.0_plus.out
+net jog_mom_plus_0        => halui.jog.0.plus
+net jog_mom_minus_0_mom   <= [DISPLAY](DISPLAY).hal_button_SD-JOG-_MOM_0
+net jog_mom_minus_0_mom   => or2.0_minus.in0
+net jog_mom_minus_0_const <= [DISPLAY](DISPLAY).hal_tglbtn_SD-JOG-_CONST_0
+net jog_mom_minus_0_const => or2.0_minus.in1
+net jog_mom_minus_0       <= or2.0_minus.out
+net jog_mom_minus_0       => halui.jog.0.minus
+
+net jog_mom_plus_1_mom    <= [DISPLAY](DISPLAY).hal_button_SD-JOG+_MOM_1
+net jog_mom_plus_1_mom    => or2.1_plus.in0
+net jog_mom_plus_1_const  <= [DISPLAY](DISPLAY).hal_tglbtn_SD-JOG+_CONST_1
+net jog_mom_plus_1_const  => or2.1_plus.in1
+net jog_mom_plus_1        <= or2.1_plus.out
+net jog_mom_plus_1        => halui.jog.1.plus
+net jog_mom_minus_1_mom   <= [DISPLAY](DISPLAY).hal_button_SD-JOG-_MOM_1
+net jog_mom_minus_1_mom   => or2.1_minus.in0
+net jog_mom_minus_1_const <= [DISPLAY](DISPLAY).hal_tglbtn_SD-JOG-_CONST_1
+net jog_mom_minus_1_const => or2.1_minus.in1
+net jog_mom_minus_1       <= or2.1_minus.out
+net jog_mom_minus_1       => halui.jog.1.minus
+
+net jog_mom_plus_2_mom    <= [DISPLAY](DISPLAY).hal_button_SD-JOG+_MOM_2
+net jog_mom_plus_2_mom    => or2.2_plus.in0
+net jog_mom_plus_2_const  <= [DISPLAY](DISPLAY).hal_tglbtn_SD-JOG+_CONST_2
+net jog_mom_plus_2_const  => or2.2_plus.in1
+net jog_mom_plus_2        <= or2.2_plus.out
+net jog_mom_plus_2        => halui.jog.2.plus
+net jog_mom_minus_2_mom   <= [DISPLAY](DISPLAY).hal_button_SD-JOG-_MOM_2
+net jog_mom_minus_2_mom   => or2.2_minus.in0
+net jog_mom_minus_2_const <= [DISPLAY](DISPLAY).hal_tglbtn_SD-JOG-_CONST_2
+net jog_mom_minus_2_const => or2.2_minus.in1
+net jog_mom_minus_2       <= or2.2_minus.out
+net jog_mom_minus_2       => halui.jog.2.minus
+
+net jog_mom_plus_3_mom    <= [DISPLAY](DISPLAY).hal_button_SD-JOG+_MOM_3
+net jog_mom_plus_3_mom    => or2.3_plus.in0
+net jog_mom_plus_3_const  <= [DISPLAY](DISPLAY).hal_tglbtn_SD-JOG+_CONST_3
+net jog_mom_plus_3_const  => or2.3_plus.in1
+net jog_mom_plus_3        <= or2.3_plus.out
+net jog_mom_plus_3        => halui.jog.3.plus
+net jog_mom_minus_3_mom   <= [DISPLAY](DISPLAY).hal_button_SD-JOG-_MOM_3
+net jog_mom_minus_3_mom   => or2.3_minus.in0
+net jog_mom_minus_3_const <= [DISPLAY](DISPLAY).hal_tglbtn_SD-JOG-_CONST_3
+net jog_mom_minus_3_const => or2.3_minus.in1
+net jog_mom_minus_3       <= or2.3_minus.out
+net jog_mom_minus_3       => halui.jog.3.minus
+
+net jog_mom_plus_4_mom    <= [DISPLAY](DISPLAY).hal_button_SD-JOG+_MOM_4
+net jog_mom_plus_4_mom    => or2.4_plus.in0
+net jog_mom_plus_4_const  <= [DISPLAY](DISPLAY).hal_tglbtn_SD-JOG+_CONST_4
+net jog_mom_plus_4_const  => or2.4_plus.in1
+net jog_mom_plus_4        <= or2.4_plus.out
+net jog_mom_plus_4        => halui.jog.4.plus
+net jog_mom_minus_4_mom   <= [DISPLAY](DISPLAY).hal_button_SD-JOG-_MOM_4
+net jog_mom_minus_4_mom   => or2.4_minus.in0
+net jog_mom_minus_4_const <= [DISPLAY](DISPLAY).hal_tglbtn_SD-JOG-_CONST_4
+net jog_mom_minus_4_const => or2.4_minus.in1
+net jog_mom_minus_4       <= or2.4_minus.out
+net jog_mom_minus_4       => halui.jog.4.minus
+
+net jog_mom_plus_5_mom    <= [DISPLAY](DISPLAY).hal_button_SD-JOG+_MOM_5
+net jog_mom_plus_5_mom    => or2.5_plus.in0
+net jog_mom_plus_5_const  <= [DISPLAY](DISPLAY).hal_tglbtn_SD-JOG+_CONST_5
+net jog_mom_plus_5_const  => or2.5_plus.in1
+net jog_mom_plus_5        <= or2.5_plus.out
+net jog_mom_plus_5        => halui.jog.5.plus
+net jog_mom_minus_5_mom   <= [DISPLAY](DISPLAY).hal_button_SD-JOG-_MOM_5
+net jog_mom_minus_5_mom   => or2.5_minus.in0
+net jog_mom_minus_5_const <= [DISPLAY](DISPLAY).hal_tglbtn_SD-JOG-_CONST_5
+net jog_mom_minus_5_const => or2.5_minus.in1
+net jog_mom_minus_5       <= or2.5_minus.out
+net jog_mom_minus_5       => halui.jog.5.minus
+
+
+#Step/Dir Enable Outputs, LEDs
+net DC1_stp-ena_00-not <= [DISPLAY](DISPLAY).hal_tglbtn_SD-ENA_0-not
+net DC1_stp-ena_00     <= [DISPLAY](DISPLAY).hal_tglbtn_SD-ENA_0
+net DC1_stp-ena_00     => [DISPLAY](DISPLAY).hal_led_SD-ENA_0 
+net DC1_stp-ena_01-not <= [DISPLAY](DISPLAY).hal_tglbtn_SD-ENA_1-not
+net DC1_stp-ena_01     <= [DISPLAY](DISPLAY).hal_tglbtn_SD-ENA_1
+net DC1_stp-ena_01     => [DISPLAY](DISPLAY).hal_led_SD-ENA_1
+net DC1_stp-ena_02-not <= [DISPLAY](DISPLAY).hal_tglbtn_SD-ENA_2-not
+net DC1_stp-ena_02     <= [DISPLAY](DISPLAY).hal_tglbtn_SD-ENA_2
+net DC1_stp-ena_02     => [DISPLAY](DISPLAY).hal_led_SD-ENA_2
+net DC1_stp-ena_03-not <= [DISPLAY](DISPLAY).hal_tglbtn_SD-ENA_3-not
+net DC1_stp-ena_03     <= [DISPLAY](DISPLAY).hal_tglbtn_SD-ENA_3
+net DC1_stp-ena_03     => [DISPLAY](DISPLAY).hal_led_SD-ENA_3
+net DC1_stp-ena_04-not <= [DISPLAY](DISPLAY).hal_tglbtn_SD-ENA_4-not
+net DC1_stp-ena_04     <= [DISPLAY](DISPLAY).hal_tglbtn_SD-ENA_4
+net DC1_stp-ena_04     => [DISPLAY](DISPLAY).hal_led_SD-ENA_4
+net DC1_stp-ena_05-not <= [DISPLAY](DISPLAY).hal_tglbtn_SD-ENA_5-not
+net DC1_stp-ena_05     <= [DISPLAY](DISPLAY).hal_tglbtn_SD-ENA_5
+net DC1_stp-ena_05     => [DISPLAY](DISPLAY).hal_led_SD-ENA_5
+
+
+#Step/Dir Speed SpinButton
+net jog_speed <= [DISPLAY](DISPLAY).hal_spinbutton_JOG-SPEED-f
+net jog_speed => halui.jog-speed
+
+#Step/Dir Speed Labels
+net SD_current_speed_0 => [DISPLAY](DISPLAY).hal_label_JOG-SPEED_0
+net SD_current_speed_0 <= hm2_[HOSTMOT2](BOARD).0.stepgen.00.velocity-fb
+net SD_current_speed_1 => [DISPLAY](DISPLAY).hal_label_JOG-SPEED_1
+net SD_current_speed_1 <= hm2_[HOSTMOT2](BOARD).0.stepgen.01.velocity-fb
+net SD_current_speed_2 => [DISPLAY](DISPLAY).hal_label_JOG-SPEED_2
+net SD_current_speed_2 <= hm2_[HOSTMOT2](BOARD).0.stepgen.02.velocity-fb
+net SD_current_speed_3 => [DISPLAY](DISPLAY).hal_label_JOG-SPEED_3
+net SD_current_speed_3 <= hm2_[HOSTMOT2](BOARD).0.stepgen.03.velocity-fb
+net SD_current_speed_4 => [DISPLAY](DISPLAY).hal_label_JOG-SPEED_4
+net SD_current_speed_4 <= hm2_[HOSTMOT2](BOARD).0.stepgen.04.velocity-fb
+net SD_current_speed_5 => [DISPLAY](DISPLAY).hal_label_JOG-SPEED_5
+net SD_current_speed_5 <= hm2_[HOSTMOT2](BOARD).0.stepgen.05.velocity-fb
+
+#Step/Dir Position Labels
+net x-pos-fb => [DISPLAY](DISPLAY).hal_label_SD_POS_0
+net y-pos-fb => [DISPLAY](DISPLAY).hal_label_SD_POS_1
+net z-pos-fb => [DISPLAY](DISPLAY).hal_label_SD_POS_2
+net a-pos-fb => [DISPLAY](DISPLAY).hal_label_SD_POS_3
+net b-pos-fb => [DISPLAY](DISPLAY).hal_label_SD_POS_4
+net c-pos-fb => [DISPLAY](DISPLAY).hal_label_SD_POS_5
+
+
+
+#Step/Dir Scale Labels
+
+net SD_scale_0 => [DISPLAY](DISPLAY).hal_label_SD_SCALE_0
+net SD_scale_1 => [DISPLAY](DISPLAY).hal_label_SD_SCALE_1
+net SD_scale_2 => [DISPLAY](DISPLAY).hal_label_SD_SCALE_2
+net SD_scale_3 => [DISPLAY](DISPLAY).hal_label_SD_SCALE_3
+net SD_scale_4 => [DISPLAY](DISPLAY).hal_label_SD_SCALE_4
+net SD_scale_5 => [DISPLAY](DISPLAY).hal_label_SD_SCALE_5
+
+#############################################
+# ENCODER
+#############################################
+
+
+#Encoder Channel LEDs
+net ENC_CH_LED_A-0 <= hm2_[HOSTMOT2](BOARD).0.encoder.00.input-a
+net ENC_CH_LED_B-0 <= hm2_[HOSTMOT2](BOARD).0.encoder.00.input-b
+net ENC_CH_LED_A-0 => [DISPLAY](DISPLAY).hal_led_ENC_CH-A_0
+net ENC_CH_LED_B-0 => [DISPLAY](DISPLAY).hal_led_ENC_CH-B_0
+net idx_updn_0     => [DISPLAY](DISPLAY).hal_led_ENC_CH-Z_0
+
+net ENC_CH_LED_A-1 <= hm2_[HOSTMOT2](BOARD).0.encoder.01.input-a
+net ENC_CH_LED_B-1 <= hm2_[HOSTMOT2](BOARD).0.encoder.01.input-b
+net ENC_CH_LED_A-1 => [DISPLAY](DISPLAY).hal_led_ENC_CH-A_1
+net ENC_CH_LED_B-1 => [DISPLAY](DISPLAY).hal_led_ENC_CH-B_1
+net idx_updn_1     => [DISPLAY](DISPLAY).hal_led_ENC_CH-Z_1
+
+net ENC_CH_LED_A-2 <= hm2_[HOSTMOT2](BOARD).0.encoder.02.input-a
+net ENC_CH_LED_B-2 <= hm2_[HOSTMOT2](BOARD).0.encoder.02.input-b
+net ENC_CH_LED_A-2 => [DISPLAY](DISPLAY).hal_led_ENC_CH-A_2
+net ENC_CH_LED_B-2 => [DISPLAY](DISPLAY).hal_led_ENC_CH-B_2
+net idx_updn_2     => [DISPLAY](DISPLAY).hal_led_ENC_CH-Z_2
+
+net ENC_CH_LED_A-3 <= hm2_[HOSTMOT2](BOARD).0.encoder.03.input-a
+net ENC_CH_LED_B-3 <= hm2_[HOSTMOT2](BOARD).0.encoder.03.input-b
+net ENC_CH_LED_A-3 => [DISPLAY](DISPLAY).hal_led_ENC_CH-A_3
+net ENC_CH_LED_B-3 => [DISPLAY](DISPLAY).hal_led_ENC_CH-B_3
+net idx_updn_3     => [DISPLAY](DISPLAY).hal_led_ENC_CH-Z_3
+
+net ENC_CH_LED_A-4 <= hm2_[HOSTMOT2](BOARD).0.encoder.04.input-a
+net ENC_CH_LED_B-4 <= hm2_[HOSTMOT2](BOARD).0.encoder.04.input-b
+net ENC_CH_LED_A-4 => [DISPLAY](DISPLAY).hal_led_ENC_CH-A_4
+net ENC_CH_LED_B-4 => [DISPLAY](DISPLAY).hal_led_ENC_CH-B_4
+net idx_updn_4     => [DISPLAY](DISPLAY).hal_led_ENC_CH-Z_4
+
+net ENC_CH_LED_A-5 <= hm2_[HOSTMOT2](BOARD).0.encoder.05.input-a
+net ENC_CH_LED_B-5 <= hm2_[HOSTMOT2](BOARD).0.encoder.05.input-b
+net ENC_CH_LED_A-5 => [DISPLAY](DISPLAY).hal_led_ENC_CH-A_5
+net ENC_CH_LED_B-5 => [DISPLAY](DISPLAY).hal_led_ENC_CH-B_5
+net idx_updn_5     => [DISPLAY](DISPLAY).hal_led_ENC_CH-Z_5
+
+
+#Encoder Velocity (rotations per second) Labels
+net ENC_VEL_RPS_0 => [DISPLAY](DISPLAY).hal_label_ENC_VEL_RPS_0
+net ENC_VEL_RPS_0 <= hm2_[HOSTMOT2](BOARD).0.encoder.00.velocity
+net ENC_VEL_RPS_1 => [DISPLAY](DISPLAY).hal_label_ENC_VEL_RPS_1
+net ENC_VEL_RPS_1 <= hm2_[HOSTMOT2](BOARD).0.encoder.01.velocity
+net ENC_VEL_RPS_2 => [DISPLAY](DISPLAY).hal_label_ENC_VEL_RPS_2
+net ENC_VEL_RPS_2 <= hm2_[HOSTMOT2](BOARD).0.encoder.02.velocity
+net ENC_VEL_RPS_3 => [DISPLAY](DISPLAY).hal_label_ENC_VEL_RPS_3
+net ENC_VEL_RPS_3 <= hm2_[HOSTMOT2](BOARD).0.encoder.03.velocity
+net ENC_VEL_RPS_4 => [DISPLAY](DISPLAY).hal_label_ENC_VEL_RPS_4
+net ENC_VEL_RPS_4 <= hm2_[HOSTMOT2](BOARD).0.encoder.04.velocity
+net ENC_VEL_RPS_5 => [DISPLAY](DISPLAY).hal_label_ENC_VEL_RPS_5
+net ENC_VEL_RPS_5 <= hm2_[HOSTMOT2](BOARD).0.encoder.05.velocity
+
+#Encoder Velocity (rotations per minute) Labels
+net ENC_VEL_RPS_0   => scale.0.in
+net ENC_VEL_RPM_0   <= scale.0.out
+net ENC_VEL_RPM_0   => [DISPLAY](DISPLAY).hal_label_ENC_VEL_RPM_0
+net ENC_VEL_RPS_1   => scale.1.in
+net ENC_VEL_RPM_1   <= scale.1.out
+net ENC_VEL_RPM_1   => [DISPLAY](DISPLAY).hal_label_ENC_VEL_RPM_1
+net ENC_VEL_RPS_2   => scale.2.in
+net ENC_VEL_RPM_2   <= scale.2.out
+net ENC_VEL_RPM_2   => [DISPLAY](DISPLAY).hal_label_ENC_VEL_RPM_2
+net ENC_VEL_RPS_3   => scale.3.in
+net ENC_VEL_RPM_3   <= scale.3.out
+net ENC_VEL_RPM_3   => [DISPLAY](DISPLAY).hal_label_ENC_VEL_RPM_3
+net ENC_VEL_RPS_4   => scale.4.in
+net ENC_VEL_RPM_4   <= scale.4.out
+net ENC_VEL_RPM_4   => [DISPLAY](DISPLAY).hal_label_ENC_VEL_RPM_4
+net ENC_VEL_RPS_5   => scale.5.in
+net ENC_VEL_RPM_5   <= scale.5.out
+net ENC_VEL_RPM_5   => [DISPLAY](DISPLAY).hal_label_ENC_VEL_RPM_5
+
+#Scale Rotations/Second to Rotations/Minute
+setp scale.0.gain 60
+setp scale.1.gain 60
+setp scale.2.gain 60
+setp scale.3.gain 60
+setp scale.4.gain 60
+setp scale.5.gain 60
+
+#Encoder Position Labels
+net ENC_POS_0 => [DISPLAY](DISPLAY).hal_label_ENC_POS_0
+net ENC_POS_0 <= hm2_[HOSTMOT2](BOARD).0.encoder.00.position
+net ENC_POS_1 => [DISPLAY](DISPLAY).hal_label_ENC_POS_1
+net ENC_POS_1 <= hm2_[HOSTMOT2](BOARD).0.encoder.01.position
+net ENC_POS_2 => [DISPLAY](DISPLAY).hal_label_ENC_POS_2
+net ENC_POS_2 <= hm2_[HOSTMOT2](BOARD).0.encoder.02.position
+net ENC_POS_3 => [DISPLAY](DISPLAY).hal_label_ENC_POS_3
+net ENC_POS_3 <= hm2_[HOSTMOT2](BOARD).0.encoder.03.position
+net ENC_POS_4 => [DISPLAY](DISPLAY).hal_label_ENC_POS_4
+net ENC_POS_4 <= hm2_[HOSTMOT2](BOARD).0.encoder.04.position
+net ENC_POS_5 => [DISPLAY](DISPLAY).hal_label_ENC_POS_5
+net ENC_POS_5 <= hm2_[HOSTMOT2](BOARD).0.encoder.05.position
+
+#Encoder Count Labels
+net ENC_CNT_0 => [DISPLAY](DISPLAY).hal_label_ENC_COUNT_0
+net ENC_CNT_0 <= hm2_[HOSTMOT2](BOARD).0.encoder.00.count
+net ENC_CNT_1 => [DISPLAY](DISPLAY).hal_label_ENC_COUNT_1
+net ENC_CNT_1 <= hm2_[HOSTMOT2](BOARD).0.encoder.01.count
+net ENC_CNT_2 => [DISPLAY](DISPLAY).hal_label_ENC_COUNT_2
+net ENC_CNT_2 <= hm2_[HOSTMOT2](BOARD).0.encoder.02.count
+net ENC_CNT_3 => [DISPLAY](DISPLAY).hal_label_ENC_COUNT_3
+net ENC_CNT_3 <= hm2_[HOSTMOT2](BOARD).0.encoder.03.count
+net ENC_CNT_4 => [DISPLAY](DISPLAY).hal_label_ENC_COUNT_4
+net ENC_CNT_4 <= hm2_[HOSTMOT2](BOARD).0.encoder.04.count
+net ENC_CNT_5 => [DISPLAY](DISPLAY).hal_label_ENC_COUNT_5
+net ENC_CNT_5 <= hm2_[HOSTMOT2](BOARD).0.encoder.05.count
+
+#Encoder Index Count Labels
+net idx_cnt_lbl_0 updown.0.count => [DISPLAY](DISPLAY).hal_label_IDX_COUNT_0
+net idx_cnt_lbl_1 updown.1.count => [DISPLAY](DISPLAY).hal_label_IDX_COUNT_1
+net idx_cnt_lbl_2 updown.2.count => [DISPLAY](DISPLAY).hal_label_IDX_COUNT_2
+net idx_cnt_lbl_3 updown.3.count => [DISPLAY](DISPLAY).hal_label_IDX_COUNT_3
+net idx_cnt_lbl_4 updown.4.count => [DISPLAY](DISPLAY).hal_label_IDX_COUNT_4
+net idx_cnt_lbl_5 updown.5.count => [DISPLAY](DISPLAY).hal_label_IDX_COUNT_5
+
+#Encoder Reset Buttons
+net enc_rst_0 <= [DISPLAY](DISPLAY).hal_button_ENC_RST_0
+net enc_rst_1 <= [DISPLAY](DISPLAY).hal_button_ENC_RST_1
+net enc_rst_2 <= [DISPLAY](DISPLAY).hal_button_ENC_RST_2
+net enc_rst_3 <= [DISPLAY](DISPLAY).hal_button_ENC_RST_3
+net enc_rst_4 <= [DISPLAY](DISPLAY).hal_button_ENC_RST_4
+net enc_rst_5 <= [DISPLAY](DISPLAY).hal_button_ENC_RST_5
+
+#############################################
+# ADC
+#############################################
+
+#Voltage Labels
+net analog_5v_in0 => [DISPLAY](DISPLAY).hal_label_AIN0
+net analog_5v_in1 => [DISPLAY](DISPLAY).hal_label_AIN1
+net analog_5v_in2 => [DISPLAY](DISPLAY).hal_label_AIN2
+net analog_5v_in3 => [DISPLAY](DISPLAY).hal_label_AIN3
+net analog_10v_in4 => [DISPLAY](DISPLAY).hal_label_AIN4
+net analog_10v_in5 => [DISPLAY](DISPLAY).hal_label_AIN5
+net analog_10v_in6 => [DISPLAY](DISPLAY).hal_label_AIN6
+net analog_10v_in7 => [DISPLAY](DISPLAY).hal_label_AIN7
+
+#Filter Checkbuttons
+net filter_enable_0 => [DISPLAY](DISPLAY).hal_check_ADCfilter_ena_0
+net filter_enable_1 => [DISPLAY](DISPLAY).hal_check_ADCfilter_ena_1
+net filter_enable_2 => [DISPLAY](DISPLAY).hal_check_ADCfilter_ena_2
+net filter_enable_3 => [DISPLAY](DISPLAY).hal_check_ADCfilter_ena_3
+net filter_enable_4 => [DISPLAY](DISPLAY).hal_check_ADCfilter_ena_4
+net filter_enable_5 => [DISPLAY](DISPLAY).hal_check_ADCfilter_ena_5
+net filter_enable_6 => [DISPLAY](DISPLAY).hal_check_ADCfilter_ena_6
+net filter_enable_7 => [DISPLAY](DISPLAY).hal_check_ADCfilter_ena_7
+
+#Scale-Gain Labels
+#[DISPLAY](DISPLAY).hal_label_ADC_SG_0
+#[DISPLAY](DISPLAY).hal_label_ADC_SG_1
+#[DISPLAY](DISPLAY).hal_label_ADC_SG_2
+#[DISPLAY](DISPLAY).hal_label_ADC_SG_3
+#[DISPLAY](DISPLAY).hal_label_ADC_SG_4
+#[DISPLAY](DISPLAY).hal_label_ADC_SG_5
+#[DISPLAY](DISPLAY).hal_label_ADC_SG_6
+#[DISPLAY](DISPLAY).hal_label_ADC_SG_7
+
+#Filter-Gain Labels
+#[DISPLAY](DISPLAY).hal_label_ADC_FG_0
+#[DISPLAY](DISPLAY).hal_label_ADC_FG_1
+#[DISPLAY](DISPLAY).hal_label_ADC_FG_2
+#[DISPLAY](DISPLAY).hal_label_ADC_FG_3
+#[DISPLAY](DISPLAY).hal_label_ADC_FG_4
+#[DISPLAY](DISPLAY).hal_label_ADC_FG_5
+#[DISPLAY](DISPLAY).hal_label_ADC_FG_6
+#[DISPLAY](DISPLAY).hal_label_ADC_FG_7
+
+#############################################
+# GPIO
+#############################################
+
+
+#GPIO Output togglebuttons, LEDs
+net DC1_out_00 <= [DISPLAY](DISPLAY).hal_togglebutton_OUT0-0
+net DC1_out_00 => [DISPLAY](DISPLAY).hal_led_OUT0-0
+net DC1_out_01 <= [DISPLAY](DISPLAY).hal_togglebutton_OUT0-1
+net DC1_out_01 => [DISPLAY](DISPLAY).hal_led_OUT0-1
+net DC1_out_02 <= [DISPLAY](DISPLAY).hal_togglebutton_OUT0-2
+net DC1_out_02 => [DISPLAY](DISPLAY).hal_led_OUT0-2
+net DC1_out_03 <= [DISPLAY](DISPLAY).hal_togglebutton_OUT0-3
+net DC1_out_03 => [DISPLAY](DISPLAY).hal_led_OUT0-3
+net DC1_out_04 <= [DISPLAY](DISPLAY).hal_togglebutton_OUT0-4
+net DC1_out_04 => [DISPLAY](DISPLAY).hal_led_OUT0-4
+net DC1_out_05 <= [DISPLAY](DISPLAY).hal_togglebutton_OUT0-5
+net DC1_out_05 => [DISPLAY](DISPLAY).hal_led_OUT0-5
+net DC1_out_06 <= [DISPLAY](DISPLAY).hal_togglebutton_OUT0-6
+net DC1_out_06 => [DISPLAY](DISPLAY).hal_led_OUT0-6
+net DC1_out_07 <= [DISPLAY](DISPLAY).hal_togglebutton_OUT0-7
+net DC1_out_07 => [DISPLAY](DISPLAY).hal_led_OUT0-7
+net DC1_out_08 <= [DISPLAY](DISPLAY).hal_togglebutton_OUT1-8
+net DC1_out_08 => [DISPLAY](DISPLAY).hal_led_OUT1-8
+net DC1_out_09 <= [DISPLAY](DISPLAY).hal_togglebutton_OUT1-9
+net DC1_out_09 => [DISPLAY](DISPLAY).hal_led_OUT1-9
+net DC1_out_10 <= [DISPLAY](DISPLAY).hal_togglebutton_OUT1-10
+net DC1_out_10 => [DISPLAY](DISPLAY).hal_led_OUT1-10
+net DC1_out_11 <= [DISPLAY](DISPLAY).hal_togglebutton_OUT1-11
+net DC1_out_11 => [DISPLAY](DISPLAY).hal_led_OUT1-11
+net DC1_out_12 <= [DISPLAY](DISPLAY).hal_togglebutton_OUT1-12
+net DC1_out_12 => [DISPLAY](DISPLAY).hal_led_OUT1-12
+net DC1_out_13 <= [DISPLAY](DISPLAY).hal_togglebutton_OUT1-13
+net DC1_out_13 => [DISPLAY](DISPLAY).hal_led_OUT1-13
+net DC1_out_14 <= [DISPLAY](DISPLAY).hal_togglebutton_OUT1-14
+net DC1_out_14 => [DISPLAY](DISPLAY).hal_led_OUT1-14
+net DC1_out_15 <= [DISPLAY](DISPLAY).hal_togglebutton_OUT1-15
+net DC1_out_15 => [DISPLAY](DISPLAY).hal_led_OUT1-15
+net DC1_HCout_16 <= [DISPLAY](DISPLAY).hal_togglebutton_HC_OUT-16
+net DC1_HCout_16 => [DISPLAY](DISPLAY).hal_led_HC_OUT-16
+net DC1_HCout_17 <= [DISPLAY](DISPLAY).hal_togglebutton_HC_OUT-17
+net DC1_HCout_17 => [DISPLAY](DISPLAY).hal_led_HC_OUT-17
+
+#Inputs 0-7
+net DC1_in_00 => [DISPLAY](DISPLAY).hal_led_IN_0
+net DC1_in_01 => [DISPLAY](DISPLAY).hal_led_IN_1
+net DC1_in_02 => [DISPLAY](DISPLAY).hal_led_IN_2
+net DC1_in_03 => [DISPLAY](DISPLAY).hal_led_IN_3
+net DC1_in_04 => [DISPLAY](DISPLAY).hal_led_IN_4
+net DC1_in_05 => [DISPLAY](DISPLAY).hal_led_IN_5
+net DC1_in_06 => [DISPLAY](DISPLAY).hal_led_IN_6
+net DC1_in_07 => [DISPLAY](DISPLAY).hal_led_IN_7
+
+#Input Block
+net DC1_in_08 => [DISPLAY](DISPLAY).hal_led_IN_8
+net DC1_in_09 => [DISPLAY](DISPLAY).hal_led_IN_9
+net DC1_in_10 => [DISPLAY](DISPLAY).hal_led_IN_10
+net DC1_in_11 => [DISPLAY](DISPLAY).hal_led_IN_11
+net DC1_in_12 => [DISPLAY](DISPLAY).hal_led_IN_12
+net DC1_in_13 => [DISPLAY](DISPLAY).hal_led_IN_13
+net DC1_in_14 => [DISPLAY](DISPLAY).hal_led_IN_14
+net DC1_in_15 => [DISPLAY](DISPLAY).hal_led_IN_15
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,668 @@
+# ###################################
+# Core EMC/HAL Loads
+# ###################################
+
+
+loadrt trivkins
+loadrt tp
+loadrt hostmot2
+newinst [HOSTMOT2](DRIVER) [HOSTMOT2](DEVNAME) -- config=[HOSTMOT2](CONFIG)  
+loadrt [EMCMOT]EMCMOT base_period_nsec=[EMCMOT]BASE_PERIOD servo_period_nsec=[EMCMOT]SERVO_PERIOD num_joints=[TRAJ]AXES  #tp=tp kins=trivkins
+loadrt pid names=pid.x,pid.y,pid.z,pid.a,pid.b,pid.c
+loadrt adc count=8
+loadrt and2 count=6
+loadrt scale count=6
+loadrt or2 names=or2.0_plus,or2.0_minus,or2.1_plus,or2.1_minus,or2.2_plus,or2.2_minus,or2.3_plus,or2.3_minus,or2.4_plus,or2.4_minus,or2.5_plus,or2.5_minus
+loadrt edge count=6
+loadrt updown count=6
+
+# ################################################
+# THREADS
+# ################################################
+
+addf motion-command-handler               servo-thread
+addf motion-controller                    servo-thread
+addf hm2_[HOSTMOT2](BOARD).0.write        servo-thread
+addf hm2_[HOSTMOT2](BOARD).0.read         servo-thread
+addf pid.x.do-pid-calcs                   servo-thread
+addf pid.y.do-pid-calcs                   servo-thread
+addf pid.z.do-pid-calcs                   servo-thread
+addf pid.a.do-pid-calcs                   servo-thread
+addf pid.b.do-pid-calcs                   servo-thread
+addf pid.c.do-pid-calcs                   servo-thread
+addf adc.0                                servo-thread
+addf adc.1                                servo-thread
+addf adc.2                                servo-thread
+addf adc.3                                servo-thread
+addf adc.4                                servo-thread
+addf adc.5                                servo-thread
+addf adc.6                                servo-thread
+addf adc.7                                servo-thread
+addf and2.0                               servo-thread
+addf and2.1                               servo-thread
+addf and2.2                               servo-thread
+addf and2.3                               servo-thread
+addf and2.4                               servo-thread
+addf and2.5                               servo-thread
+addf scale.0                              servo-thread
+addf scale.1                              servo-thread
+addf scale.2                              servo-thread
+addf scale.3                              servo-thread
+addf scale.4                              servo-thread
+addf scale.5                              servo-thread
+addf or2.0_plus                           servo-thread
+addf or2.0_minus                          servo-thread
+addf or2.1_plus                           servo-thread
+addf or2.1_minus                          servo-thread
+addf or2.2_plus                           servo-thread
+addf or2.2_minus                          servo-thread
+addf or2.3_plus                           servo-thread
+addf or2.3_minus                          servo-thread
+addf or2.4_plus                           servo-thread
+addf or2.4_minus                          servo-thread
+addf or2.5_plus                           servo-thread
+addf or2.5_minus                          servo-thread
+addf edge.0                                base-thread
+addf edge.1                                base-thread
+addf edge.2                                base-thread
+addf edge.3                                base-thread
+addf edge.4                                base-thread
+addf edge.5                                base-thread
+addf updown.0                              base-thread
+addf updown.1                              base-thread
+addf updown.2                              base-thread
+addf updown.3                              base-thread
+addf updown.4                              base-thread
+addf updown.5                              base-thread
+
+# ################################################
+# ST Board GPIO Setup
+# ################################################
+
+## Set GPIO pins as Output
+
+# High Current Opto
+setp hm2_[HOSTMOT2](BOARD).0.gpio.034.is_output true
+setp hm2_[HOSTMOT2](BOARD).0.gpio.035.is_output true
+
+# Stepgen Enables *pin#19 (gpio.052) on Nano1 is dead 
+setp hm2_[HOSTMOT2](BOARD).0.gpio.050.is_output true
+setp hm2_[HOSTMOT2](BOARD).0.gpio.051.is_output true
+setp hm2_[HOSTMOT2](BOARD).0.gpio.052.is_output true
+setp hm2_[HOSTMOT2](BOARD).0.gpio.053.is_output true
+setp hm2_[HOSTMOT2](BOARD).0.gpio.054.is_output true
+setp hm2_[HOSTMOT2](BOARD).0.gpio.055.is_output true
+
+# General Purpose Outputs
+setp hm2_[HOSTMOT2](BOARD).0.gpio.056.is_output true
+setp hm2_[HOSTMOT2](BOARD).0.gpio.057.is_output true
+setp hm2_[HOSTMOT2](BOARD).0.gpio.058.is_output true
+setp hm2_[HOSTMOT2](BOARD).0.gpio.059.is_output true
+setp hm2_[HOSTMOT2](BOARD).0.gpio.060.is_output true
+setp hm2_[HOSTMOT2](BOARD).0.gpio.061.is_output true
+setp hm2_[HOSTMOT2](BOARD).0.gpio.062.is_output true
+setp hm2_[HOSTMOT2](BOARD).0.gpio.063.is_output true
+setp hm2_[HOSTMOT2](BOARD).0.gpio.064.is_output true
+setp hm2_[HOSTMOT2](BOARD).0.gpio.065.is_output true
+setp hm2_[HOSTMOT2](BOARD).0.gpio.066.is_output true
+setp hm2_[HOSTMOT2](BOARD).0.gpio.067.is_output true
+setp hm2_[HOSTMOT2](BOARD).0.gpio.068.is_output true
+setp hm2_[HOSTMOT2](BOARD).0.gpio.069.is_output true
+setp hm2_[HOSTMOT2](BOARD).0.gpio.070.is_output true
+setp hm2_[HOSTMOT2](BOARD).0.gpio.071.is_output true
+
+#Connect DE10-Nano GPIO pins to signals as daughtercard mask
+
+##High Current Opto outputs
+net DC1_HCout_17 => hm2_[HOSTMOT2](BOARD).0.gpio.034.out
+net DC1_HCout_16 => hm2_[HOSTMOT2](BOARD).0.gpio.035.out
+
+##Stepgen Enable Outputs
+net DC1_stp-ena_04-not => hm2_[HOSTMOT2](BOARD).0.gpio.050.out 
+net DC1_stp-ena_05-not => hm2_[HOSTMOT2](BOARD).0.gpio.051.out
+net DC1_stp-ena_02-not => hm2_[HOSTMOT2](BOARD).0.gpio.052.out
+net DC1_stp-ena_03-not => hm2_[HOSTMOT2](BOARD).0.gpio.053.out
+net DC1_stp-ena_00-not => hm2_[HOSTMOT2](BOARD).0.gpio.054.out
+net DC1_stp-ena_01-not => hm2_[HOSTMOT2](BOARD).0.gpio.055.out
+
+#General Purpose Outputs
+net DC1_out_00 => hm2_[HOSTMOT2](BOARD).0.gpio.056.out
+net DC1_out_08 => hm2_[HOSTMOT2](BOARD).0.gpio.057.out
+net DC1_out_01 => hm2_[HOSTMOT2](BOARD).0.gpio.058.out
+net DC1_out_09 => hm2_[HOSTMOT2](BOARD).0.gpio.059.out
+net DC1_out_02 => hm2_[HOSTMOT2](BOARD).0.gpio.060.out
+net DC1_out_10 => hm2_[HOSTMOT2](BOARD).0.gpio.061.out
+net DC1_out_03 => hm2_[HOSTMOT2](BOARD).0.gpio.062.out
+net DC1_out_11 => hm2_[HOSTMOT2](BOARD).0.gpio.063.out
+net DC1_out_04 => hm2_[HOSTMOT2](BOARD).0.gpio.064.out
+net DC1_out_12 => hm2_[HOSTMOT2](BOARD).0.gpio.065.out
+net DC1_out_05 => hm2_[HOSTMOT2](BOARD).0.gpio.066.out
+net DC1_out_13 => hm2_[HOSTMOT2](BOARD).0.gpio.067.out
+net DC1_out_06 => hm2_[HOSTMOT2](BOARD).0.gpio.068.out
+net DC1_out_14 => hm2_[HOSTMOT2](BOARD).0.gpio.069.out
+net DC1_out_07 => hm2_[HOSTMOT2](BOARD).0.gpio.070.out
+net DC1_out_15 => hm2_[HOSTMOT2](BOARD).0.gpio.071.out
+
+##Input pin signals out (inverted for hardware on DC1)
+net DC1_in_10 <= hm2_[HOSTMOT2](BOARD).0.gpio.000.in_not
+net DC1_in_04 <= hm2_[HOSTMOT2](BOARD).0.gpio.001.in_not
+net DC1_in_05 <= hm2_[HOSTMOT2](BOARD).0.gpio.002.in_not
+net DC1_in_00 <= hm2_[HOSTMOT2](BOARD).0.gpio.003.in_not
+net DC1_in_06 <= hm2_[HOSTMOT2](BOARD).0.gpio.004.in_not
+net DC1_in_01 <= hm2_[HOSTMOT2](BOARD).0.gpio.005.in_not
+net DC1_in_11 <= hm2_[HOSTMOT2](BOARD).0.gpio.006.in_not
+net DC1_in_12 <= hm2_[HOSTMOT2](BOARD).0.gpio.007.in_not
+
+net DC1_in_13 <= hm2_[HOSTMOT2](BOARD).0.gpio.008.in_not
+net DC1_in_14 <= hm2_[HOSTMOT2](BOARD).0.gpio.009.in_not
+net DC1_in_07 <= hm2_[HOSTMOT2](BOARD).0.gpio.010.in_not
+net DC1_in_15 <= hm2_[HOSTMOT2](BOARD).0.gpio.011.in_not
+net DC1_in_09 <= hm2_[HOSTMOT2](BOARD).0.gpio.012.in_not
+net DC1_in_08 <= hm2_[HOSTMOT2](BOARD).0.gpio.013.in_not
+net DC1_in_03 <= hm2_[HOSTMOT2](BOARD).0.gpio.014.in_not
+net DC1_in_02 <= hm2_[HOSTMOT2](BOARD).0.gpio.015.in_not
+
+
+#*******************
+#  NANO_ADC
+#*******************
+
+net adc_comp_0 hm2_[HOSTMOT2](BOARD).0.nano_soc_adc.ch.0.out => adc.0.in
+net analog_5v_in0 <= adc.0.out
+net filter_enable_0 <= adc.0.filter-enable
+setp adc.0.scale-gain [AIN_0]SCALE_GAIN
+setp adc.0.filter-gain [AIN_0]FILTER_GAIN
+
+net adc_comp_1 hm2_[HOSTMOT2](BOARD).0.nano_soc_adc.ch.2.out => adc.1.in
+net analog_5v_in1 <= adc.1.out
+net filter_enable_1 <= adc.1.filter-enable
+setp adc.1.scale-gain [AIN_1]SCALE_GAIN
+setp adc.1.filter-gain [AIN_1]FILTER_GAIN
+
+net adc_comp_2 hm2_[HOSTMOT2](BOARD).0.nano_soc_adc.ch.4.out => adc.2.in
+net analog_5v_in2 <= adc.2.out
+net filter_enable_2 <= adc.2.filter-enable
+setp adc.2.scale-gain [AIN_2]SCALE_GAIN
+setp adc.2.filter-gain [AIN_2]FILTER_GAIN
+
+net adc_comp_3 hm2_[HOSTMOT2](BOARD).0.nano_soc_adc.ch.6.out => adc.3.in
+net analog_5v_in3 <= adc.3.out
+net filter_enable_3 <= adc.3.filter-enable
+setp adc.3.scale-gain [AIN_3]SCALE_GAIN
+setp adc.3.filter-gain [AIN_3]FILTER_GAIN
+
+net adc_comp_4 hm2_[HOSTMOT2](BOARD).0.nano_soc_adc.ch.1.out => adc.4.in
+net analog_10v_in4 <= adc.4.out
+net filter_enable_4 <= adc.4.filter-enable
+setp adc.4.scale-gain [AIN_4]SCALE_GAIN
+setp adc.4.filter-gain [AIN_4]FILTER_GAIN
+
+net adc_comp_5 hm2_[HOSTMOT2](BOARD).0.nano_soc_adc.ch.3.out => adc.5.in
+net analog_10v_in5 <= adc.5.out
+net filter_enable_5 <= adc.5.filter-enable
+setp adc.5.scale-gain [AIN_5]SCALE_GAIN
+setp adc.5.filter-gain [AIN_5]FILTER_GAIN
+
+net adc_comp_6 hm2_[HOSTMOT2](BOARD).0.nano_soc_adc.ch.5.out => adc.6.in
+net analog_10v_in6 <= adc.6.out
+net filter_enable_6 <= adc.6.filter-enable
+setp adc.6.scale-gain [AIN_6]SCALE_GAIN
+setp adc.6.filter-gain [AIN_6]FILTER_GAIN
+
+net adc_comp_7 hm2_[HOSTMOT2](BOARD).0.nano_soc_adc.ch.7.out => adc.7.in
+net analog_10v_in7 <= adc.7.out
+net filter_enable_7 <= adc.7.filter-enable
+setp adc.7.scale-gain [AIN_7]SCALE_GAIN
+setp adc.7.filter-gain [AIN_7]FILTER_GAIN
+
+
+#Nano ch0 => board conn_0
+#Nano ch2 => board conn_1
+#Nano ch4 => board conn_2
+#Nano ch6 => board conn_3
+#Nano ch1 => board conn_4
+#Nano ch3 => board conn_5
+#Nano ch5 => board conn_6
+#Nano ch7 => board conn_7
+
+#*********************************************************************
+#  GPIO Signal Masking (this is where signals match card pin markings)
+#*********************************************************************
+
+##Input Single Block signals
+#net DC1_in_00
+#net DC1_in_01
+#net DC1_in_02
+#net DC1_in_03
+#net DC1_in_04
+#net DC1_in_05
+#net DC1_in_06
+#net DC1_in_07
+
+##Input x8 block signals
+#net DC1_in_08
+#net DC1_in_09
+#net DC1_in_10
+#net DC1_in_11
+#net DC1_in_12
+#net DC1_in_13
+#net DC1_in_14
+#net DC1_in_15
+
+##ADC 5v input signals
+#net analog_5v_in0
+#net analog_5v_in1
+#net analog_5v_in2
+#net analog_5v_in3
+
+##ADC 10v input signals
+#net analog_10v_in4
+#net analog_10v_in5
+#net analog_10v_in6
+#net analog_10v_in7
+
+##Step/Dir Enable outputs
+#net DC1_stp-ena_00
+#net DC1_stp-ena_01
+#net DC1_stp-ena_02
+#net DC1_stp-ena_03
+#net DC1_stp-ena_04
+#net DC1_stp-ena_05
+
+#Output Block 0
+#net DC1_out_00
+#net DC1_out_01
+#net DC1_out_02
+#net DC1_out_03
+#net DC1_out_04
+#net DC1_out_05
+#net DC1_out_06
+#net DC1_out_07
+
+#Output Block 1
+#net DC1_out_08
+#net DC1_out_09
+#net DC1_out_10
+#net DC1_out_11
+#net DC1_out_12
+#net DC1_out_13
+#net DC1_out_14
+#net DC1_out_15
+
+#Opto-Mosfet outputs (High Current)
+#net DC1_HCout_16
+#net DC1_HCout_17
+
+#encoder module sample frequency
+setp hm2_[HOSTMOT2](BOARD).0.encoder.sample-frequency 25000000
+
+#*******************
+#  AXIS X 
+#*******************
+
+setp   pid.x.Pgain     [AXIS_0]P
+setp   pid.x.Igain     [AXIS_0]I
+setp   pid.x.Dgain     [AXIS_0]D
+setp   pid.x.bias      [AXIS_0]BIAS
+setp   pid.x.FF0       [AXIS_0]FF0
+setp   pid.x.FF1       [AXIS_0]FF1
+setp   pid.x.FF2       [AXIS_0]FF2
+setp   pid.x.deadband  [AXIS_0]DEADBAND
+setp   pid.x.maxoutput [AXIS_0]MAX_OUTPUT
+setp   pid.x.error-previous-target true
+setp   pid.x.maxerror .0005
+
+net x-index-enable  <=> pid.x.index-enable
+net x-enable        =>  pid.x.enable
+net x-pos-cmd       =>  pid.x.command
+net x-vel-cmd       =>  pid.x.command-deriv
+net x-pos-fb        =>  pid.x.feedback
+net x-output        =>  pid.x.output
+
+# Step Gen signals/setup
+
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.00.dirsetup        [AXIS_0]DIRSETUP
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.00.dirhold         [AXIS_0]DIRHOLD
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.00.steplen         [AXIS_0]STEPLEN
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.00.stepspace       [AXIS_0]STEPSPACE
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.00.position-scale  [AXIS_0]STEP_SCALE
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.00.step_type        0
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.00.control-type     1
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.00.maxaccel         [AXIS_0]STEPGEN_MAXACCEL
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.00.maxvel           [AXIS_0]STEPGEN_MAXVEL
+
+# closedloop stepper signals
+
+net x-pos-cmd      <= axis.0.motor-pos-cmd
+net x-vel-cmd      <= axis.0.joint-vel-cmd
+net x-output       => hm2_[HOSTMOT2](BOARD).0.stepgen.00.velocity-cmd
+net x-pos-fb       <= hm2_[HOSTMOT2](BOARD).0.stepgen.00.position-fb
+net x-pos-fb       => axis.0.motor-pos-fb
+net x-enable       <= axis.0.amp-enable-out
+net x-enable       => and2.0.in0
+net DC1_stp-ena_00 => and2.0.in1
+net x-enabled      <= and2.0.out
+net x-enabled      => hm2_[HOSTMOT2](BOARD).0.stepgen.00.enable
+
+# Encoder
+net enc_rst_0 hm2_[HOSTMOT2](BOARD).0.encoder.00.reset
+net idx_edge_0 <= hm2_[HOSTMOT2](BOARD).0.encoder.00.input-index
+net idx_edge_0 => edge.0.in
+net idx_updn_0 <= edge.0.out
+net idx_updn_0 => updown.0.countup 
+setp hm2_[HOSTMOT2](BOARD).0.encoder.00.scale [AXIS_0]ENCODER_SCALE
+setp hm2_[HOSTMOT2](BOARD).0.encoder.00.index-invert true
+setp edge.0.out-width-ns 50000
+
+
+
+#*******************
+#  AXIS Y 
+#*******************
+
+setp   pid.y.Pgain     [AXIS_1]P
+setp   pid.y.Igain     [AXIS_1]I
+setp   pid.y.Dgain     [AXIS_1]D
+setp   pid.y.bias      [AXIS_1]BIAS
+setp   pid.y.FF0       [AXIS_1]FF0
+setp   pid.y.FF1       [AXIS_1]FF1
+setp   pid.y.FF2       [AXIS_1]FF2
+setp   pid.y.deadband  [AXIS_1]DEADBAND
+setp   pid.y.maxoutput [AXIS_1]MAX_OUTPUT
+setp   pid.y.error-previous-target true
+setp   pid.y.maxerror .0005
+
+net y-index-enable  <=> pid.y.index-enable
+net y-enable        =>  pid.y.enable
+net y-pos-cmd       =>  pid.y.command
+net y-vel-cmd       =>  pid.y.command-deriv
+net y-pos-fb        =>  pid.y.feedback
+net y-output        =>  pid.y.output
+
+# Step Gen signals/setup
+
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.01.dirsetup        [AXIS_1]DIRSETUP
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.01.dirhold         [AXIS_1]DIRHOLD
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.01.steplen         [AXIS_1]STEPLEN
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.01.stepspace       [AXIS_1]STEPSPACE
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.01.position-scale  [AXIS_1]STEP_SCALE
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.01.step_type        0
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.01.control-type     1
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.01.maxaccel         [AXIS_1]STEPGEN_MAXACCEL
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.01.maxvel           [AXIS_1]STEPGEN_MAXVEL
+
+# ---closedloop stepper signals---
+
+net y-pos-cmd      <= axis.1.motor-pos-cmd
+net y-vel-cmd      <= axis.1.joint-vel-cmd
+net y-output       <= hm2_[HOSTMOT2](BOARD).0.stepgen.01.velocity-cmd
+net y-pos-fb       <= hm2_[HOSTMOT2](BOARD).0.stepgen.01.position-fb
+net y-pos-fb       => axis.1.motor-pos-fb
+net y-enable       <= axis.1.amp-enable-out
+net y-enable       => and2.1.in0
+net DC1_stp-ena_01 => and2.1.in1
+net y-enabled      <= and2.1.out
+net y-enabled      => hm2_[HOSTMOT2](BOARD).0.stepgen.01.enable
+
+# Encoder
+net enc_rst_1 hm2_[HOSTMOT2](BOARD).0.encoder.01.reset
+net idx_edge_1 <= hm2_[HOSTMOT2](BOARD).0.encoder.01.input-index
+net idx_edge_1 => edge.1.in
+net idx_updn_1 <= edge.1.out
+net idx_updn_1 => updown.1.countup 
+setp hm2_[HOSTMOT2](BOARD).0.encoder.01.scale [AXIS_1]ENCODER_SCALE
+setp hm2_[HOSTMOT2](BOARD).0.encoder.01.index-invert true
+setp edge.1.out-width-ns 50000
+
+
+
+#*******************
+#  AXIS Z 
+#*******************
+
+setp   pid.z.Pgain     [AXIS_2]P
+setp   pid.z.Igain     [AXIS_2]I
+setp   pid.z.Dgain     [AXIS_2]D
+setp   pid.z.bias      [AXIS_2]BIAS
+setp   pid.z.FF0       [AXIS_2]FF0
+setp   pid.z.FF1       [AXIS_2]FF1
+setp   pid.z.FF2       [AXIS_2]FF2
+setp   pid.z.deadband  [AXIS_2]DEADBAND
+setp   pid.z.maxoutput [AXIS_2]MAX_OUTPUT
+setp   pid.z.error-previous-target true
+setp   pid.z.maxerror .0005
+
+net z-index-enable  <=> pid.z.index-enable
+net z-enable        =>  pid.z.enable
+net z-pos-cmd       =>  pid.z.command
+net z-vel-cmd       =>  pid.z.command-deriv
+net z-pos-fb        =>  pid.z.feedback
+net z-output        =>  pid.z.output
+
+# Step Gen signals/setup
+
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.02.dirsetup        [AXIS_2]DIRSETUP
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.02.dirhold         [AXIS_2]DIRHOLD
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.02.steplen         [AXIS_2]STEPLEN
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.02.stepspace       [AXIS_2]STEPSPACE
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.02.position-scale  [AXIS_2]STEP_SCALE
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.02.step_type        0
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.02.control-type     1
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.02.maxaccel         [AXIS_2]STEPGEN_MAXACCEL
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.02.maxvel           [AXIS_2]STEPGEN_MAXVEL
+
+# ---closedloop stepper signals---
+
+net z-pos-cmd      <= axis.2.motor-pos-cmd
+net z-vel-cmd      <= axis.2.joint-vel-cmd
+net z-output       <= hm2_[HOSTMOT2](BOARD).0.stepgen.02.velocity-cmd
+net z-pos-fb       <= hm2_[HOSTMOT2](BOARD).0.stepgen.02.position-fb
+net z-pos-fb       => axis.2.motor-pos-fb
+net z-enable       <= axis.2.amp-enable-out
+net z-enable       => and2.2.in0
+net DC1_stp-ena_02 => and2.2.in1
+net z-enabled      <= and2.2.out
+net z-enabled      => hm2_[HOSTMOT2](BOARD).0.stepgen.02.enable
+
+# Encoder
+net enc_rst_2 hm2_[HOSTMOT2](BOARD).0.encoder.02.reset
+net idx_edge_2 <= hm2_[HOSTMOT2](BOARD).0.encoder.02.input-index
+net idx_edge_2 => edge.2.in
+net idx_updn_2 <= edge.2.out
+net idx_updn_2 => updown.2.countup 
+setp hm2_[HOSTMOT2](BOARD).0.encoder.02.scale [AXIS_2]ENCODER_SCALE
+setp hm2_[HOSTMOT2](BOARD).0.encoder.02.index-invert true
+setp edge.2.out-width-ns 50000
+
+#*******************
+#  AXIS A 
+#*******************
+
+setp   pid.a.Pgain     [AXIS_3]P
+setp   pid.a.Igain     [AXIS_3]I
+setp   pid.a.Dgain     [AXIS_3]D
+setp   pid.a.bias      [AXIS_3]BIAS
+setp   pid.a.FF0       [AXIS_3]FF0
+setp   pid.a.FF1       [AXIS_3]FF1
+setp   pid.a.FF2       [AXIS_3]FF2
+setp   pid.a.deadband  [AXIS_3]DEADBAND
+setp   pid.a.maxoutput [AXIS_3]MAX_OUTPUT
+setp   pid.a.error-previous-target true
+setp   pid.a.maxerror .0005
+
+net a-index-enable  <=> pid.a.index-enable
+net a-enable        =>  pid.a.enable
+net a-pos-cmd       =>  pid.a.command
+net a-vel-cmd       =>  pid.a.command-deriv
+net a-pos-fb        =>  pid.a.feedback
+net a-output        =>  pid.a.output
+
+# Step Gen signals/setup
+
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.03.dirsetup        [AXIS_3]DIRSETUP
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.03.dirhold         [AXIS_3]DIRHOLD
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.03.steplen         [AXIS_3]STEPLEN
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.03.stepspace       [AXIS_3]STEPSPACE
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.03.position-scale  [AXIS_3]STEP_SCALE
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.03.step_type        0
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.03.control-type     1
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.03.maxaccel         [AXIS_3]STEPGEN_MAXACCEL
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.03.maxvel           [AXIS_3]STEPGEN_MAXVEL
+
+# ---closedloop stepper signals---
+
+net a-pos-cmd      <= axis.3.motor-pos-cmd
+net a-vel-cmd      <= axis.3.joint-vel-cmd
+net a-output       <= hm2_[HOSTMOT2](BOARD).0.stepgen.03.velocity-cmd
+net a-pos-fb       <= hm2_[HOSTMOT2](BOARD).0.stepgen.03.position-fb
+net a-pos-fb       => axis.3.motor-pos-fb
+net a-enable       <= axis.3.amp-enable-out
+net a-enable       => and2.3.in0
+net DC1_stp-ena_03 => and2.3.in1
+net a-enabled      <= and2.3.out
+net a-enabled      => hm2_[HOSTMOT2](BOARD).0.stepgen.03.enable
+
+# Encoder
+net enc_rst_3 hm2_[HOSTMOT2](BOARD).0.encoder.03.reset
+net idx_edge_3 <= hm2_[HOSTMOT2](BOARD).0.encoder.03.input-index
+net idx_edge_3 => edge.3.in
+net idx_updn_3 <= edge.3.out
+net idx_updn_3 => updown.3.countup 
+setp hm2_[HOSTMOT2](BOARD).0.encoder.03.scale [AXIS_3]ENCODER_SCALE
+setp hm2_[HOSTMOT2](BOARD).0.encoder.03.index-invert true
+setp edge.3.out-width-ns 50000
+
+#*******************
+#  AXIS B 
+#*******************
+
+setp   pid.b.Pgain     [AXIS_4]P
+setp   pid.b.Igain     [AXIS_4]I
+setp   pid.b.Dgain     [AXIS_4]D
+setp   pid.b.bias      [AXIS_4]BIAS
+setp   pid.b.FF0       [AXIS_4]FF0
+setp   pid.b.FF1       [AXIS_4]FF1
+setp   pid.b.FF2       [AXIS_4]FF2
+setp   pid.b.deadband  [AXIS_4]DEADBAND
+setp   pid.b.maxoutput [AXIS_4]MAX_OUTPUT
+setp   pid.b.error-previous-target true
+setp   pid.b.maxerror .0005
+
+net b-index-enable  <=> pid.b.index-enable
+net b-enable        =>  pid.b.enable
+net b-pos-cmd       =>  pid.b.command
+net b-vel-cmd       =>  pid.b.command-deriv
+net b-pos-fb        =>  pid.b.feedback
+net b-output        =>  pid.b.output
+
+# Step Gen signals/setup
+
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.04.dirsetup        [AXIS_4]DIRSETUP
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.04.dirhold         [AXIS_4]DIRHOLD
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.04.steplen         [AXIS_4]STEPLEN
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.04.stepspace       [AXIS_4]STEPSPACE
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.04.position-scale  [AXIS_4]STEP_SCALE
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.04.step_type        0
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.04.control-type     1
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.04.maxaccel         [AXIS_4]STEPGEN_MAXACCEL
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.04.maxvel           [AXIS_4]STEPGEN_MAXVEL
+
+# ---closedloop stepper signals---
+
+net b-pos-cmd      <= axis.4.motor-pos-cmd
+net b-vel-cmd      <= axis.4.joint-vel-cmd
+net b-output       <= hm2_[HOSTMOT2](BOARD).0.stepgen.04.velocity-cmd
+net b-pos-fb       <= hm2_[HOSTMOT2](BOARD).0.stepgen.04.position-fb
+net b-pos-fb       => axis.4.motor-pos-fb
+net b-enable       <= axis.4.amp-enable-out
+net b-enable       => and2.4.in0
+net DC1_stp-ena_04 => and2.4.in1
+net b-enabled      <= and2.4.out
+net b-enabled      => hm2_[HOSTMOT2](BOARD).0.stepgen.04.enable
+
+# Encoder
+net enc_rst_4 hm2_[HOSTMOT2](BOARD).0.encoder.04.reset
+net idx_edge_4 <= hm2_[HOSTMOT2](BOARD).0.encoder.04.input-index
+net idx_edge_4 => edge.4.in
+net idx_updn_4 <= edge.4.out
+net idx_updn_4 => updown.4.countup 
+setp hm2_[HOSTMOT2](BOARD).0.encoder.04.scale [AXIS_0]ENCODER_SCALE
+setp hm2_[HOSTMOT2](BOARD).0.encoder.04.index-invert true
+setp edge.4.out-width-ns 50000
+
+
+#*******************
+#  AXIS C 
+#*******************
+
+setp   pid.c.Pgain     [AXIS_5]P
+setp   pid.c.Igain     [AXIS_5]I
+setp   pid.c.Dgain     [AXIS_5]D
+setp   pid.c.bias      [AXIS_5]BIAS
+setp   pid.c.FF0       [AXIS_5]FF0
+setp   pid.c.FF1       [AXIS_5]FF1
+setp   pid.c.FF2       [AXIS_5]FF2
+setp   pid.c.deadband  [AXIS_5]DEADBAND
+setp   pid.c.maxoutput [AXIS_5]MAX_OUTPUT
+setp   pid.c.error-previous-target true
+setp   pid.c.maxerror .0005
+
+net c-index-enable  <=> pid.c.index-enable
+net c-enable        =>  pid.c.enable
+net c-pos-cmd       =>  pid.c.command
+net c-vel-cmd       =>  pid.c.command-deriv
+net c-pos-fb        =>  pid.c.feedback
+net c-output        =>  pid.c.output
+
+# Step Gen signals/setup
+
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.05.dirsetup        [AXIS_5]DIRSETUP
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.05.dirhold         [AXIS_5]DIRHOLD
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.05.steplen         [AXIS_5]STEPLEN
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.05.stepspace       [AXIS_5]STEPSPACE
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.05.position-scale  [AXIS_5]STEP_SCALE
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.05.step_type        0
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.05.control-type     1
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.05.maxaccel         [AXIS_5]STEPGEN_MAXACCEL
+setp   hm2_[HOSTMOT2](BOARD).0.stepgen.05.maxvel           [AXIS_5]STEPGEN_MAXVEL
+
+# ---closedloop stepper signals---
+
+net c-pos-cmd      <= axis.5.motor-pos-cmd
+net c-vel-cmd      <= axis.5.joint-vel-cmd
+net c-output       <= hm2_[HOSTMOT2](BOARD).0.stepgen.05.velocity-cmd
+net c-pos-fb       <= hm2_[HOSTMOT2](BOARD).0.stepgen.05.position-fb
+net c-pos-fb       => axis.5.motor-pos-fb
+net c-enable       <= axis.5.amp-enable-out
+net c-enable       => and2.5.in0
+net DC1_stp-ena_05 => and2.5.in1
+net c-enabled      <= and2.5.out
+net c-enabled      => hm2_[HOSTMOT2](BOARD).0.stepgen.05.enable
+
+# Encoder
+net enc_rst_5 hm2_[HOSTMOT2](BOARD).0.encoder.05.reset
+net idx_edge_5 <= hm2_[HOSTMOT2](BOARD).0.encoder.05.input-index
+net idx_edge_5 => edge.5.in
+net idx_updn_5 <= edge.5.out
+net idx_updn_5 => updown.5.countup 
+setp hm2_[HOSTMOT2](BOARD).0.encoder.05.scale [AXIS_5]ENCODER_SCALE
+setp hm2_[HOSTMOT2](BOARD).0.encoder.05.index-invert true
+setp edge.5.out-width-ns 50000
+
+
+# ##################################################
+# Standard I/O Block - EStop, Etc
+# ##################################################
+
+# create a signal for the estop loopback
+net estop-loop iocontrol.0.user-enable-out => iocontrol.0.emc-enable-in
+
+# create signals for tool loading loopback
+net tool-prep-loop iocontrol.0.tool-prepare => iocontrol.0.tool-prepared
+net tool-change-loop iocontrol.0.tool-change => iocontrol.0.tool-changed
+
+
+
+
+
+
