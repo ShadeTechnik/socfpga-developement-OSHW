@@ -1,3 +1,0 @@
-(sym_lib_table
-  (lib (name DE10nano-interface-rescue)(type Legacy)(uri "${KIPRJMOD}/DE10nano interface-rescue.lib")(options "")(descr ""))
-)
