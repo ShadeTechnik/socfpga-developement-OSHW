@@ -25,17 +25,6 @@ Wire Wire Line
 Wire Wire Line
 	4700 2700 4700 3150
 $Comp
-L DE10nano-interface-rescue:R_Small-Device R7
-U 1 1 5D22AC57
-P 5800 3300
-F 0 "R7" H 5600 3350 50  0000 L CNN
-F 1 "120R" H 5550 3250 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5800 3300 50  0001 C CNN
-F 3 "~" H 5800 3300 50  0001 C CNN
-	1    5800 3300
-	1    0    0    -1  
-$EndComp
-$Comp
 L DE10nano-interface-rescue:C_Small-Device C9
 U 1 1 5D22B0A8
 P 4700 2500
@@ -78,14 +67,6 @@ F 3 "~" H 6150 4200 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	5800 3200 5800 2950
-Wire Wire Line
-	5800 2950 6300 2950
-Wire Wire Line
-	5800 3400 5800 3650
-Wire Wire Line
-	5800 3650 6300 3650
-Wire Wire Line
 	6050 3300 6150 3300
 Wire Wire Line
 	6150 4200 6050 4200
@@ -104,15 +85,9 @@ Wire Wire Line
 	6050 4200 6050 4850
 Connection ~ 6050 4200
 Wire Wire Line
-	5800 3650 5100 3650
-Connection ~ 5800 3650
-Wire Wire Line
-	5800 2950 5350 2950
-Wire Wire Line
 	5350 2950 5350 3450
 Wire Wire Line
 	5350 3450 5100 3450
-Connection ~ 5800 2950
 Wire Wire Line
 	5100 4050 5350 4050
 Wire Wire Line
@@ -191,31 +166,6 @@ Wire Wire Line
 Connection ~ 3900 2350
 Wire Wire Line
 	3900 2350 4700 2350
-Wire Wire Line
-	5350 4550 5800 4550
-Wire Wire Line
-	5800 4550 6300 4550
-Connection ~ 5800 4550
-Wire Wire Line
-	5800 4300 5800 4550
-Wire Wire Line
-	5800 3850 5100 3850
-Wire Wire Line
-	5800 3850 6300 3850
-Connection ~ 5800 3850
-Wire Wire Line
-	5800 4100 5800 3850
-$Comp
-L DE10nano-interface-rescue:R_Small-Device R2
-U 1 1 5D2C9361
-P 5800 4200
-F 0 "R2" H 5900 4150 50  0000 L CNN
-F 1 "120R" H 5850 4250 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5800 4200 50  0001 C CNN
-F 3 "~" H 5800 4200 50  0001 C CNN
-	1    5800 4200
-	-1   0    0    1   
-$EndComp
 Text Label 7600 4000 2    50   ~ 0
 GND
 Wire Wire Line
@@ -269,4 +219,33 @@ F 3 "" H 7900 3700 50  0001 C CNN
 	1    7900 3700
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	5800 3650 5100 3650
+Wire Wire Line
+	5800 3650 6300 3650
+Connection ~ 5800 3650
+Wire Wire Line
+	5800 3400 5800 3650
+Wire Wire Line
+	5800 2950 5350 2950
+Wire Wire Line
+	5800 2950 6300 2950
+Connection ~ 5800 2950
+Wire Wire Line
+	5800 3200 5800 2950
+$Comp
+L DE10nano-interface-rescue:R_Small-Device R7
+U 1 1 5D22AC57
+P 5800 3300
+F 0 "R7" H 5600 3350 50  0000 L CNN
+F 1 "120R" H 5550 3250 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5800 3300 50  0001 C CNN
+F 3 "~" H 5800 3300 50  0001 C CNN
+	1    5800 3300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5350 4550 6300 4550
+Wire Wire Line
+	5100 3850 6300 3850
 $EndSCHEMATC
