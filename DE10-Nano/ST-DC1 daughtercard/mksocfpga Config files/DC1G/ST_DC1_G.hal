@@ -85,7 +85,7 @@ addf updown.5                              base-thread
 setp hm2_[HOSTMOT2](BOARD).0.gpio.034.is_output true
 setp hm2_[HOSTMOT2](BOARD).0.gpio.035.is_output true
 
-# Stepgen Enables *pin#19 (gpio.052) on Nano1 is dead 
+# Stepgen Enables
 setp hm2_[HOSTMOT2](BOARD).0.gpio.050.is_output true
 setp hm2_[HOSTMOT2](BOARD).0.gpio.051.is_output true
 setp hm2_[HOSTMOT2](BOARD).0.gpio.052.is_output true
