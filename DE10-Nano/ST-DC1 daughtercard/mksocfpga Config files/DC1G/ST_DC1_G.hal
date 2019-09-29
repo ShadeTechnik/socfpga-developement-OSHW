@@ -9,7 +9,7 @@ loadrt hostmot2
 newinst [HOSTMOT2](DRIVER) [HOSTMOT2](DEVNAME) -- config=[HOSTMOT2](CONFIG)  
 loadrt [EMCMOT]EMCMOT base_period_nsec=[EMCMOT]BASE_PERIOD servo_period_nsec=[EMCMOT]SERVO_PERIOD num_joints=[TRAJ]AXES  #tp=tp kins=trivkins
 loadrt pid names=pid.x,pid.y,pid.z,pid.a,pid.b,pid.c
-loadrt adc count=8
+loadrt vari_bit_adc count=8
 loadrt and2 count=6
 loadrt scale count=6
 loadrt or2 names=or2.0_plus,or2.0_minus,or2.1_plus,or2.1_minus,or2.2_plus,or2.2_minus,or2.3_plus,or2.3_minus,or2.4_plus,or2.4_minus,or2.5_plus,or2.5_minus
@@ -30,14 +30,14 @@ addf pid.z.do-pid-calcs                   servo-thread
 addf pid.a.do-pid-calcs                   servo-thread
 addf pid.b.do-pid-calcs                   servo-thread
 addf pid.c.do-pid-calcs                   servo-thread
-addf adc.0                                servo-thread
-addf adc.1                                servo-thread
-addf adc.2                                servo-thread
-addf adc.3                                servo-thread
-addf adc.4                                servo-thread
-addf adc.5                                servo-thread
-addf adc.6                                servo-thread
-addf adc.7                                servo-thread
+addf vari-bit-adc.0                       servo-thread
+addf vari-bit-adc.1                       servo-thread
+addf vari-bit-adc.2                       servo-thread
+addf vari-bit-adc.3                       servo-thread
+addf vari-bit-adc.4                       servo-thread
+addf vari-bit-adc.5                       servo-thread
+addf vari-bit-adc.6                       servo-thread
+addf vari-bit-adc.7                       servo-thread
 addf and2.0                               servo-thread
 addf and2.1                               servo-thread
 addf and2.2                               servo-thread
@@ -85,7 +85,7 @@ addf updown.5                              base-thread
 setp hm2_[HOSTMOT2](BOARD).0.gpio.034.is_output true
 setp hm2_[HOSTMOT2](BOARD).0.gpio.035.is_output true
 
-# Stepgen Enables
+# Stepgen Enables *pin#19 (gpio.052) on Nano1 is dead 
 setp hm2_[HOSTMOT2](BOARD).0.gpio.050.is_output true
 setp hm2_[HOSTMOT2](BOARD).0.gpio.051.is_output true
 setp hm2_[HOSTMOT2](BOARD).0.gpio.052.is_output true
@@ -167,53 +167,61 @@ net DC1_in_02 <= hm2_[HOSTMOT2](BOARD).0.gpio.015.in_not
 #  NANO_ADC
 #*******************
 
-net adc_comp_0 hm2_[HOSTMOT2](BOARD).0.nano_soc_adc.ch.0.out => adc.0.in
-net analog_5v_in0 <= adc.0.out
-net filter_enable_0 <= adc.0.filter-enable
-setp adc.0.scale-gain [AIN_0]SCALE_GAIN
-setp adc.0.filter-gain [AIN_0]FILTER_GAIN
+net adc_comp_0 hm2_[HOSTMOT2](BOARD).0.nano_soc_adc.ch.0.out => vari-bit-adc.0.in
+net analog_5v_in0 <= vari-bit-adc.0.out
+net filter_enable_0 <= vari-bit-adc.0.filter-enable
+setp vari-bit-adc.0.scale-gain [AIN_0]SCALE_GAIN
+setp vari-bit-adc.0.filter-gain [AIN_0]FILTER_GAIN
+setp vari-bit-adc.0.bit-depth [AIN_0]BIT_DEPTH
 
-net adc_comp_1 hm2_[HOSTMOT2](BOARD).0.nano_soc_adc.ch.2.out => adc.1.in
-net analog_5v_in1 <= adc.1.out
-net filter_enable_1 <= adc.1.filter-enable
-setp adc.1.scale-gain [AIN_1]SCALE_GAIN
-setp adc.1.filter-gain [AIN_1]FILTER_GAIN
+net adc_comp_1 hm2_[HOSTMOT2](BOARD).0.nano_soc_adc.ch.2.out => vari-bit-adc.1.in
+net analog_5v_in1 <= vari-bit-adc.1.out
+net filter_enable_1 <= vari-bit-adc.1.filter-enable
+setp vari-bit-adc.1.scale-gain [AIN_1]SCALE_GAIN
+setp vari-bit-adc.1.filter-gain [AIN_1]FILTER_GAIN
+setp vari-bit-adc.1.bit-depth [AIN_1]BIT_DEPTH
 
-net adc_comp_2 hm2_[HOSTMOT2](BOARD).0.nano_soc_adc.ch.4.out => adc.2.in
-net analog_5v_in2 <= adc.2.out
-net filter_enable_2 <= adc.2.filter-enable
-setp adc.2.scale-gain [AIN_2]SCALE_GAIN
-setp adc.2.filter-gain [AIN_2]FILTER_GAIN
+net adc_comp_2 hm2_[HOSTMOT2](BOARD).0.nano_soc_adc.ch.4.out => vari-bit-adc.2.in
+net analog_5v_in2 <= vari-bit-adc.2.out
+net filter_enable_2 <= vari-bit-adc.2.filter-enable
+setp vari-bit-adc.2.scale-gain [AIN_2]SCALE_GAIN
+setp vari-bit-adc.2.filter-gain [AIN_2]FILTER_GAIN
+setp vari-bit-adc.2.bit-depth [AIN_2]BIT_DEPTH
 
-net adc_comp_3 hm2_[HOSTMOT2](BOARD).0.nano_soc_adc.ch.6.out => adc.3.in
-net analog_5v_in3 <= adc.3.out
-net filter_enable_3 <= adc.3.filter-enable
-setp adc.3.scale-gain [AIN_3]SCALE_GAIN
-setp adc.3.filter-gain [AIN_3]FILTER_GAIN
+net adc_comp_3 hm2_[HOSTMOT2](BOARD).0.nano_soc_adc.ch.6.out => vari-bit-adc.3.in
+net analog_5v_in3 <= vari-bit-adc.3.out
+net filter_enable_3 <= vari-bit-adc.3.filter-enable
+setp vari-bit-adc.3.scale-gain [AIN_3]SCALE_GAIN
+setp vari-bit-adc.3.filter-gain [AIN_3]FILTER_GAIN
+setp vari-bit-adc.3.bit-depth [AIN_3]BIT_DEPTH
 
-net adc_comp_4 hm2_[HOSTMOT2](BOARD).0.nano_soc_adc.ch.1.out => adc.4.in
-net analog_10v_in4 <= adc.4.out
-net filter_enable_4 <= adc.4.filter-enable
-setp adc.4.scale-gain [AIN_4]SCALE_GAIN
-setp adc.4.filter-gain [AIN_4]FILTER_GAIN
+net adc_comp_4 hm2_[HOSTMOT2](BOARD).0.nano_soc_adc.ch.1.out => vari-bit-adc.4.in
+net analog_10v_in4 <= vari-bit-adc.4.out
+net filter_enable_4 <= vari-bit-adc.4.filter-enable
+setp vari-bit-adc.4.scale-gain [AIN_4]SCALE_GAIN
+setp vari-bit-adc.4.filter-gain [AIN_4]FILTER_GAIN
+setp vari-bit-adc.4.bit-depth [AIN_4]BIT_DEPTH
 
-net adc_comp_5 hm2_[HOSTMOT2](BOARD).0.nano_soc_adc.ch.3.out => adc.5.in
-net analog_10v_in5 <= adc.5.out
-net filter_enable_5 <= adc.5.filter-enable
-setp adc.5.scale-gain [AIN_5]SCALE_GAIN
-setp adc.5.filter-gain [AIN_5]FILTER_GAIN
+net adc_comp_5 hm2_[HOSTMOT2](BOARD).0.nano_soc_adc.ch.3.out => vari-bit-adc.5.in
+net analog_10v_in5 <= vari-bit-adc.5.out
+net filter_enable_5 <= vari-bit-adc.5.filter-enable
+setp vari-bit-adc.5.scale-gain [AIN_5]SCALE_GAIN
+setp vari-bit-adc.5.filter-gain [AIN_5]FILTER_GAIN
+setp vari-bit-adc.5.bit-depth [AIN_5]BIT_DEPTH
 
-net adc_comp_6 hm2_[HOSTMOT2](BOARD).0.nano_soc_adc.ch.5.out => adc.6.in
-net analog_10v_in6 <= adc.6.out
-net filter_enable_6 <= adc.6.filter-enable
-setp adc.6.scale-gain [AIN_6]SCALE_GAIN
-setp adc.6.filter-gain [AIN_6]FILTER_GAIN
+net adc_comp_6 hm2_[HOSTMOT2](BOARD).0.nano_soc_adc.ch.5.out => vari-bit-adc.6.in
+net analog_10v_in6 <= vari-bit-adc.6.out
+net filter_enable_6 <= vari-bit-adc.6.filter-enable
+setp vari-bit-adc.6.scale-gain [AIN_6]SCALE_GAIN
+setp vari-bit-adc.6.filter-gain [AIN_6]FILTER_GAIN
+setp vari-bit-adc.6.bit-depth [AIN_6]BIT_DEPTH
 
-net adc_comp_7 hm2_[HOSTMOT2](BOARD).0.nano_soc_adc.ch.7.out => adc.7.in
-net analog_10v_in7 <= adc.7.out
-net filter_enable_7 <= adc.7.filter-enable
-setp adc.7.scale-gain [AIN_7]SCALE_GAIN
-setp adc.7.filter-gain [AIN_7]FILTER_GAIN
+net adc_comp_7 hm2_[HOSTMOT2](BOARD).0.nano_soc_adc.ch.7.out => vari-bit-adc.7.in
+net analog_10v_in7 <= vari-bit-adc.7.out
+net filter_enable_7 <= vari-bit-adc.7.filter-enable
+setp vari-bit-adc.7.scale-gain [AIN_7]SCALE_GAIN
+setp vari-bit-adc.7.filter-gain [AIN_7]FILTER_GAIN
+setp vari-bit-adc.7.bit-depth [AIN_7]BIT_DEPTH
 
 
 #Nano ch0 => board conn_0

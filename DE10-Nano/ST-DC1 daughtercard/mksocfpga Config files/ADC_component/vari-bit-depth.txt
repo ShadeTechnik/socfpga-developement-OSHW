@@ -1,0 +1,37 @@
+Name
+    vari_bit_adc - Variable bit input shifting for interfacing analog to digital converter
+
+Synopsis
+    loadrt vari_bit_adc [count=N|names=name1[,name2...]]
+
+Description
+    In the event that the firmware module for interfacing the output of an adc reports a overly populated 32bit integer in hal while a lower bit depth is the actual analog value, this component will offset the specified bit depth and output a scaled float
+
+Functions
+    vari-bit-adc.N (requires a floating-point thread)
+
+Pins 
+        
+vari-bit-adc.N.in u32 in
+        Input value
+
+vari-bit-adc.N.bit-depth u32 in
+        Bit-depth to use, i.e. a 12bit ADC = vari-bit-adc.N.bit-depth 12
+
+vari-bit-adc.N.scale_gain float in
+        Scales the output, used for hardware calibration
+
+vari-bit-adc.N.filter_enable bit in
+        Enables the low-pass filter, useful for minimizing the response to noise on the input. 
+
+vari-bit-adc.N.filter_gain float in
+        The lower the filter_gain value, the slower the output is to react to input changes. A value of 0.01 is a good place to start.
+
+vari-bit-adc.N.out float out
+        The output of the component. Represents voltage
+        
+Author
+    Jason Kercher/Justin White
+
+License 
+    GPL
