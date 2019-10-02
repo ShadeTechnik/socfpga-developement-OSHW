@@ -3,7 +3,6 @@
  * Input Bit-depth is variable in case of populated 
  * bit data outside of ADC output depth. 
  *
- * Single channel version 
  * Simple filter for noise surpression, 
  * but will slow down the output as gain increases.
  */
